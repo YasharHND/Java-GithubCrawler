@@ -1,0 +1,9 @@
+query GetAllLabels($repoOwner: String!, $repoName: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        labels(first: 100) {
+            nodes {
+                ... LabelFullData
+            }
+        }
+    }
+}

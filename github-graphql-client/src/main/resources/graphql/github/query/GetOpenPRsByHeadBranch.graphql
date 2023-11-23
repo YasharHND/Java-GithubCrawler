@@ -1,0 +1,9 @@
+query GetOpenPRsByHeadBranch($repoOwner: String!, $repoName: String!, $head: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        pullRequests(first: 100, states: [OPEN], headRefName: $head) {
+            nodes {
+                ... PullRequest
+            }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+query CountOpenPRsByHeadAndBaseBranches($repoOwner: String!, $repoName: String!, $head: String!, $base: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        pullRequests(first: 100, states: [OPEN], headRefName: $head, baseRefName: $base) {
+            totalCount
+        }
+    }
+}

@@ -1,0 +1,29 @@
+query CreatePrInitialization($repoOwner: String!, $repoName: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        defaultBranchRef {
+            id
+            name
+        }
+        refs(first: 100, refPrefix: "refs/heads/") {
+            nodes {
+                id
+                name
+            }
+        }
+        collaborators(first: 100) {
+            nodes {
+                ... User
+            }
+        }
+        labels(first: 100) {
+            nodes {
+                ... Label
+            }
+        }
+        milestones(first: 100) {
+            nodes {
+                ... MilestoneLightData
+            }
+        }
+    }
+}

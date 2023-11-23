@@ -1,0 +1,23 @@
+fragment UserCardInfo on User {
+    id
+    login
+    url
+    avatarUrl
+    name
+    bio
+    email
+    location
+    company
+    websiteUrl
+    twitterUsername
+    status {
+        message
+        emojiHTML
+    }
+    hovercard {
+        contexts {
+            octicon
+            message
+        }
+    }
+}

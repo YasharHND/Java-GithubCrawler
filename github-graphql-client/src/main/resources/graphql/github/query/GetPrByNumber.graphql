@@ -1,0 +1,7 @@
+query GetPrByNumber($repoOwner: String!, $repoName: String!, $prNumber: Int!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        pullRequest(number: $prNumber) {
+            ... PullRequest
+        }
+    }
+}

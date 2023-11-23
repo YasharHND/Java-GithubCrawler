@@ -1,0 +1,13 @@
+mutation AddReviewThreadReply($pullRequestId: ID, $pullRequestReviewId: ID, $body: String!, $inReplyTo: ID) {
+    addPullRequestReviewComment(input: {pullRequestId: $pullRequestId, body: $body, pullRequestReviewId: $pullRequestReviewId, inReplyTo: $inReplyTo}) {
+        comment {
+            ... ReviewCreatedComment
+            pullRequestReview {
+                id
+                comments {
+                    totalCount
+                }
+            }
+        }
+    }
+}

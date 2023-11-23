@@ -1,0 +1,7 @@
+mutation SetPrMilestone($prId: ID!, $milestoneId: ID) {
+    updatePullRequest(input: {pullRequestId: $prId, milestoneId: $milestoneId}) {
+        pullRequest {
+            ... PullRequest
+        }
+    }
+}

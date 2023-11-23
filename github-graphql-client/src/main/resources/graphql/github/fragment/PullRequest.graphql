@@ -1,0 +1,68 @@
+fragment PullRequest on PullRequest {
+    id
+    number
+    title
+    body
+    state
+    createdAt
+    author {
+        ... Actor
+    }
+    pendingReviews: reviews(first: 100, states: [PENDING]) {
+        nodes {
+            id
+            author {
+                ... Actor
+            }
+        }
+    }
+    reviewRequests(first: 100) {
+        nodes {
+            requestedReviewer {
+                __typename
+                ... User
+            }
+        }
+    }
+    assignees(first: 100) {
+        nodes {
+            ... User
+        }
+    }
+    labels(first: 100) {
+        nodes {
+            ... Label
+        }
+    }
+    milestone {
+        id
+        title
+        number
+        state
+        progressPercentage
+        dueOn
+    }
+    latestOpinionatedReviews(first: 100) {
+        nodes {
+            author {
+                ... User
+            }
+            state
+        }
+    }
+    baseRefName
+    baseRefOid
+    headRefName
+    headRefOid
+    headRef {
+        id
+    }
+    mergedAt
+    updatedAt
+    url
+    mergeable
+    canBeRebased
+    milestone {
+        ... MilestoneLightData
+    }
+}

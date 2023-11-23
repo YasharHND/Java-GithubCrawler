@@ -1,0 +1,7 @@
+fragment Reaction on Reaction{
+    user {
+        ... User
+    }
+    createdAt
+    content
+}

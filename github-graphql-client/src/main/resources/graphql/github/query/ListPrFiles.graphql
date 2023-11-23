@@ -1,0 +1,24 @@
+query ListPrFiles($repoOwner: String!, $repoName: String!,$prNumber:Int!, $after: String, $pageSize: Int) {
+    repository(owner: $repoOwner, name: $repoName) {
+        pullRequest(number: $prNumber) {
+            id
+            title
+            baseRefName
+            baseRefOid
+            headRefName
+            headRefOid
+            files(first: $pageSize, after: $after) {
+                pageInfo {
+                    hasNextPage
+                    endCursor
+                }
+                edges {
+                    node {
+                        ... PrChangedFile
+                    }
+                    cursor
+                }
+            }
+        }
+    }
+}

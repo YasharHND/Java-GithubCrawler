@@ -1,0 +1,10 @@
+mutation ClearPrLabels($pullRequestId: ID!) {
+    clearLabelsFromLabelable(input: {labelableId: $pullRequestId}) {
+        labelable {
+            __typename
+            ... on PullRequest{
+                ... PullRequest
+            }
+        }
+    }
+}

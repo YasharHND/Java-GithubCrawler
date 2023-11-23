@@ -1,0 +1,53 @@
+buildscript {
+    ext {
+        apolloVersion = "4.0.0-alpha.3"
+        mapStructVersion = "1.5.5.Final"
+    }
+}
+
+plugins {
+    id "java"
+    id "com.apollographql.apollo3" version "${apolloVersion}"
+    id "org.springframework.boot" version "3.1.6"
+    id "io.spring.dependency-management" version "1.1.4"
+}
+
+group = "com.yasharhnd.github_crawler.github_graphql_client"
+version = "0.0.1"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":commons")
+    implementation "com.apollographql.apollo3:apollo-rx3-support:${apolloVersion}"
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.kafka:spring-kafka"
+    implementation "org.apache.commons:commons-collections4:4.4"
+    implementation "org.mapstruct:mapstruct:${mapStructVersion}"
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
+}
+
+apollo {
+    service("github") {
+        srcDir("src/main/resources/graphql/github")
+        packageName.set("com.github.graphql")
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            exclude "graphql"
+        }
+    }
+}

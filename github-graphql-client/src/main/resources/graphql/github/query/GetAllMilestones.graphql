@@ -1,0 +1,9 @@
+query GetAllMilestones($repoOwner: String!, $repoName: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        milestones(first: 100) {
+            nodes {
+                ... MilestoneMediumData
+            }
+        }
+    }
+}

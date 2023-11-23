@@ -1,0 +1,16 @@
+fragment ReviewCreatedComment on PullRequestReviewComment {
+    id
+    databaseId
+    body
+    author {
+        login
+        avatarUrl
+        url
+    }
+    path
+    outdated
+    state
+    createdAt
+    lastEditedAt
+    diffHunk
+}

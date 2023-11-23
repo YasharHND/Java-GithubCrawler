@@ -1,0 +1,96 @@
+query ListPrTimelineItems($repoOwner: String!, $repoName: String!, $prNumber: Int!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        pullRequest(number: $prNumber) {
+            id
+            timelineItems(first: 100, itemTypes: [CLOSED_EVENT, REVIEW_REQUESTED_EVENT, BASE_REF_CHANGED_EVENT, MERGED_EVENT, HEAD_REF_DELETED_EVENT, REOPENED_EVENT, HEAD_REF_RESTORED_EVENT, ISSUE_COMMENT, PULL_REQUEST_COMMIT, PULL_REQUEST_REVIEW]) {
+                nodes {
+                    __typename
+                    ... on ClosedEvent {
+                        id
+                        actor {
+                            ...Actor
+                        }
+                        createdAt
+                    }
+                    ... on ReviewRequestedEvent {
+                        id
+                        actor {
+                            ...Actor
+                        }
+                        requestedReviewer {
+                            ...Actor
+                        }
+                        createdAt
+                    }
+                    ... on BaseRefChangedEvent {
+                        id
+                        actor {
+                            ...Actor
+                        }
+                        createdAt
+                    }
+                    ... on MergedEvent {
+                        id
+                        actor {
+                            ...Actor
+                        }
+                        createdAt
+                    }
+                    ... on HeadRefDeletedEvent {
+                        id
+                        actor {
+                            ...Actor
+                        }
+                        createdAt
+                    }
+                    ... on ReopenedEvent {
+                        id
+                        actor {
+                            ...Actor
+                        }
+                        createdAt
+                    }
+                    ... on HeadRefRestoredEvent {
+                        id
+                        actor {
+                            ...Actor
+                        }
+                        createdAt
+                    }
+                    ... on IssueComment {
+                        id
+                        author {
+                            ...Actor
+                        }
+                        body
+                        createdAt
+                        updatedAt
+                    }
+                    ... on PullRequestCommit {
+                        id
+                        commit {
+                            oid
+                            author {
+                                ... GitActor
+                            }
+                            message
+                            committedDate
+                        }
+                    }
+                    ... on PullRequestReview {
+                        id
+                        author {
+                            ...Actor
+                        }
+                        state
+                        body
+                        updatedAt
+                        comments {
+                            totalCount
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

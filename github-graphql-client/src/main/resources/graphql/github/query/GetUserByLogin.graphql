@@ -1,0 +1,5 @@
+query GetUserByLogin($login: String!) {
+    user(login: $login) {
+        ... UserCardInfo
+    }
+}

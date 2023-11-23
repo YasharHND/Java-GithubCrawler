@@ -1,0 +1,7 @@
+fragment MilestoneLightData on Milestone {
+    id
+    number
+    title
+    state
+    closed
+}

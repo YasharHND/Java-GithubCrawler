@@ -1,0 +1,5 @@
+fragment Issue on Issue {
+    id
+    number
+    title
+}

@@ -1,0 +1,7 @@
+query GetLabelByName($repoOwner: String!, $repoName: String!, $name: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        label(name: $name) {
+            ... LabelFullData
+        }
+    }
+}

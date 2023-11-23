@@ -1,0 +1,6 @@
+fragment PullRequestXS on PullRequest {
+    id
+    number
+    state
+    baseRefName
+}

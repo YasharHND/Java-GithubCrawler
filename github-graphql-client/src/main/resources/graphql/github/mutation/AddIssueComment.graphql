@@ -1,0 +1,5 @@
+mutation AddIssueComment($pullRequestId: ID!, $body: String!) {
+    addComment(input: {subjectId: $pullRequestId, body: $body}) {
+        clientMutationId
+    }
+}

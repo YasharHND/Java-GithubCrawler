@@ -1,0 +1,14 @@
+query GetRepositoryBranches($repoOwner: String!, $repoName: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        defaultBranchRef {
+            id
+            name
+        }
+        refs(first: 100, refPrefix: "refs/heads/") {
+            nodes {
+                id
+                name
+            }
+        }
+    }
+}

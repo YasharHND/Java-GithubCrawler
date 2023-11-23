@@ -1,0 +1,14 @@
+fragment PullRequestLightData on PullRequest {
+    id
+    number
+    title
+    body
+    state
+    createdAt
+    updatedAt
+    mergedAt
+    state
+    author {
+        ... Actor
+    }
+}

@@ -1,0 +1,12 @@
+query ListPrComments($repoOwner: String!, $repoName: String!, $prNumber: Int!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        pullRequest(number: $prNumber) {
+            id
+            reviewThreads(first: 100) {
+                nodes {
+                    ... ReviewThread
+                }
+            }
+        }
+    }
+}

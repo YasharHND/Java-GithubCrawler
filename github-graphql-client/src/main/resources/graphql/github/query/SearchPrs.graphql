@@ -1,0 +1,18 @@
+query SearchPrs($searchQuery: String!, $before: String, $after: String, $first: Int, $last: Int) {
+    pullRequests: search(query: $searchQuery, type: ISSUE, after: $after, first: $first, before: $before, last: $last) {
+        edges {
+            cursor
+            node {
+                __typename
+                ... PullRequest
+            }
+        }
+        pageInfo {
+            startCursor
+            endCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        issueCount
+    }
+}

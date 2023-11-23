@@ -1,0 +1,10 @@
+mutation AddPrAssignees($pullRequestId: ID!, $assigneeIds: [ID!]!) {
+    addAssigneesToAssignable(input: {assignableId: $pullRequestId, assigneeIds: $assigneeIds}) {
+        assignable {
+            __typename
+            ... on PullRequest {
+                ... PullRequest
+            }
+        }
+    }
+}

@@ -1,0 +1,4 @@
+fragment Blob on Blob {
+    isBinary
+    text
+}

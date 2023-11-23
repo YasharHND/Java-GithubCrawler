@@ -1,0 +1,7 @@
+query GetCommit($repoOwner: String!, $repoName: String!, $commitSha: GitObjectID!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        object(oid: $commitSha) {
+            oid
+        }
+    }
+}

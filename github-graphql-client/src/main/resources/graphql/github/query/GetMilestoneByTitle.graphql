@@ -1,0 +1,7 @@
+query GetMilestoneByNumber($repoOwner: String!, $repoName: String!, $number: Int!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        milestone(number: $number) {
+            ... MilestoneFullData
+        }
+    }
+}

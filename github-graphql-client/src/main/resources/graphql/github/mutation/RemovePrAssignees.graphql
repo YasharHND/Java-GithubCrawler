@@ -1,0 +1,10 @@
+mutation RemovePrAssignees($pullRequestId: ID!, $assigneeIds: [ID!]!) {
+    removeAssigneesFromAssignable(input: {assignableId: $pullRequestId, assigneeIds: $assigneeIds}) {
+        assignable {
+            __typename
+            ... on PullRequest {
+                ... PullRequest
+            }
+        }
+    }
+}

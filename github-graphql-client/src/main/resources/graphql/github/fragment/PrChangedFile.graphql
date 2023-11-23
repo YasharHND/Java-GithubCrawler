@@ -1,0 +1,7 @@
+fragment PrChangedFile on PullRequestChangedFile {
+    path
+    additions
+    deletions
+    changeType
+    viewerViewedState
+}

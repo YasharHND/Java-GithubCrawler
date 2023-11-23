@@ -1,0 +1,5 @@
+fragment Actor on Actor {
+    login
+    avatarUrl
+    url
+}

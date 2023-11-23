@@ -1,0 +1,7 @@
+mutation CreatePrReviewSimple($pullRequestId: ID!, $body: String!, $event: PullRequestReviewEvent) {
+    addPullRequestReview(input: {pullRequestId: $pullRequestId, body: $body, event: $event}) {
+        pullRequestReview {
+            id
+        }
+    }
+}

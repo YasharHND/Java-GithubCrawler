@@ -1,0 +1,13 @@
+fragment LabelFullData on Label {
+    name
+    color
+    createdAt
+    description
+    isDefault
+    id
+    pullRequests(first: 100) {
+        nodes {
+            ... PullRequestLightData
+        }
+    }
+}

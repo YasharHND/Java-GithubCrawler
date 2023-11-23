@@ -1,0 +1,12 @@
+mutation SubmitPrReview($pullRequestId: ID!, $event: PullRequestReviewEvent!, $pullRequestReviewId: ID!, $body: String) {
+    submitPullRequestReview(input: {pullRequestId: $pullRequestId, pullRequestReviewId: $pullRequestReviewId, event: $event, body: $body}) {
+        clientMutationId,
+        pullRequestReview {
+            comments(first: 1) {
+                nodes {
+                    ... ReviewCreatedComment
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+query SearchPrsByLabel($repoOwner: String!, $repoName: String!, $labelName: String!, $before: String, $after: String, $first: Int, $last: Int) {
+    repository(owner: $repoOwner, name: $repoName) {
+        label(name: $labelName) {
+            name
+            color
+            createdAt
+            description
+            isDefault
+            id
+            pullRequests(after: $after, first: $first, before: $before, last: $last, orderBy: {field: UPDATED_AT, direction: DESC}) {
+                edges {
+                    cursor
+                    node {
+                        __typename
+                        ... PullRequest
+                    }
+                }
+                pageInfo {
+                    startCursor
+                    endCursor
+                    hasNextPage
+                    hasPreviousPage
+                }
+                totalCount
+            }
+        }
+    }
+}

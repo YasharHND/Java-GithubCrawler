@@ -1,0 +1,29 @@
+fragment ReviewComment on PullRequestReviewComment {
+    id
+    databaseId
+    body
+    author {
+        ... Actor
+    }
+    path
+    outdated
+    state
+    createdAt
+    lastEditedAt
+    editor {
+        ... Actor
+    }
+    replyTo {
+        id
+        databaseId
+    }
+    diffHunk
+    pullRequestReview {
+        id
+    }
+    reactions(first: 20) {
+        nodes {
+            ... Reaction
+        }
+    }
+}

@@ -1,0 +1,12 @@
+mutation CreatePrReviewEmpty($pullRequestId: ID!) {
+    addPullRequestReview(input: {pullRequestId: $pullRequestId}) {
+        pullRequestReview {
+            id
+            comments(first: 1) {
+                nodes {
+                    id
+                }
+            }
+        }
+    }
+}

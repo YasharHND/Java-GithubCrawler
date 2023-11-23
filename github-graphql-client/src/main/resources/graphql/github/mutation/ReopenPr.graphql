@@ -1,0 +1,7 @@
+mutation ReopenPr($prId: ID!) {
+    reopenPullRequest(input: {pullRequestId: $prId}) {
+        pullRequest {
+            ... PullRequest
+        }
+    }
+}

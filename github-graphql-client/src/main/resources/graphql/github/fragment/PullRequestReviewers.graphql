@@ -1,0 +1,19 @@
+fragment PullRequestReviewers on PullRequest {
+    state
+    reviewRequests(first: 100) {
+        nodes {
+            requestedReviewer {
+                __typename
+                ... User
+            }
+        }
+    }
+    latestOpinionatedReviews(first: 100) {
+        nodes {
+            author {
+                ... User
+            }
+            state
+        }
+    }
+}

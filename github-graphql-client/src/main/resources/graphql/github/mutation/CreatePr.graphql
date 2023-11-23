@@ -1,0 +1,7 @@
+mutation CreatePr($repositoryId: ID!, $baseRefName: String!, $headRefName: String!, $title: String!, $body: String, $isDraft: Boolean) {
+    createPullRequest(input: {repositoryId: $repositoryId, baseRefName: $baseRefName, headRefName: $headRefName, title: $title, body: $body, draft: $isDraft}) {
+        pullRequest {
+            ... PullRequest
+        }
+    }
+}

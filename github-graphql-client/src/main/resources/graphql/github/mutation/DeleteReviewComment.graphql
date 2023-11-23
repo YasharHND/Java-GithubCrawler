@@ -1,0 +1,13 @@
+mutation DeleteReviewComment($commentId: ID!) {
+    deletePullRequestReviewComment(input: {id: $commentId}) {
+        pullRequestReview {
+            pullRequest {
+                id
+            }
+            state
+            comments {
+                totalCount
+            }
+        }
+    }
+}

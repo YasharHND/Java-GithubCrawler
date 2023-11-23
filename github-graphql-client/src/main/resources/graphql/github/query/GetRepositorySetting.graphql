@@ -1,0 +1,5 @@
+query GetRepositorySetting($repoOwner: String!, $repoName: String!) {
+    repository(owner: $repoOwner, name: $repoName) {
+        ... RepositorySetting
+    }
+}

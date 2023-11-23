@@ -1,0 +1,15 @@
+fragment Repository on Repository {
+    id
+    name
+    url
+    owner {
+        login
+    }
+    nameWithOwner
+    collaborators(first: 100) {
+        nodes{
+            ... User
+        }
+    }
+    ... RepositorySetting
+}

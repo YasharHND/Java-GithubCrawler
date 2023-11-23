@@ -1,0 +1,17 @@
+fragment PublicRepository on Repository {
+    id
+    nameWithOwner
+    name
+    owner {
+        login
+    }
+    description
+    descriptionHTML
+    homepageUrl
+    forkCount
+    forkingAllowed
+    isFork
+    isArchived
+    isPrivate
+    isLocked
+}

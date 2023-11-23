@@ -1,0 +1,19 @@
+fragment PullRequestMediumData on PullRequest {
+    id
+    number
+    title
+    body
+    state
+    createdAt
+    updatedAt
+    mergedAt
+    state
+    author {
+        ... Actor
+    }
+    labels(first: 100) {
+        nodes {
+            ... Label
+        }
+    }
+}

@@ -1,0 +1,10 @@
+mutation AddPrLabels($pullRequestId: ID!, $labelIds: [ID!]!) {
+    addLabelsToLabelable(input: {labelableId: $pullRequestId, labelIds: $labelIds}) {
+        labelable {
+            __typename
+            ... on PullRequest {
+                ... PullRequest
+            }
+        }
+    }
+}

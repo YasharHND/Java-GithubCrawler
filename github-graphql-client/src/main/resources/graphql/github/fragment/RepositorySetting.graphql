@@ -1,0 +1,7 @@
+fragment RepositorySetting on Repository {
+    deleteBranchOnMerge
+    rebaseMergeAllowed
+    squashMergeAllowed
+    mergeCommitAllowed
+    viewerDefaultMergeMethod
+}

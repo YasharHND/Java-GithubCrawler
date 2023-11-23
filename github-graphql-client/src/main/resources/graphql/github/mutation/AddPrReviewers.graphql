@@ -1,0 +1,7 @@
+mutation AddPrReviewers($pullRequestId: ID!, $reviewerIds: [ID!]!) {
+    requestReviews(input: {pullRequestId: $pullRequestId, userIds: $reviewerIds}) {
+        pullRequest {
+            ... PullRequest
+        }
+    }
+}

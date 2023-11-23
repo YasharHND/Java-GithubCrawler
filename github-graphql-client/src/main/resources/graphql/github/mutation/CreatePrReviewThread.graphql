@@ -1,0 +1,12 @@
+mutation CreatePrReviewThread($pullRequestId: ID!, $event:PullRequestReviewEvent, $body: String!, $path: String!,$line: Int!, $startLine: Int, $side: DiffSide, $startSide: DiffSide) {
+    addPullRequestReview(input: {pullRequestId: $pullRequestId, event: $event, threads: [{ body: $body, path: $path, line: $line, startLine: $startLine, side: $side, startSide: $startSide}]}) {
+        pullRequestReview {
+            id
+            comments(first: 1) {
+                nodes{
+                    ... ReviewCreatedComment
+                }
+            }
+        }
+    }
+}

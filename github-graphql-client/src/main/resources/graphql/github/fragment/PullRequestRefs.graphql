@@ -1,0 +1,6 @@
+fragment PullRequestRefs on PullRequest {
+    baseRefName
+    baseRefOid
+    headRefName
+    headRefOid
+}

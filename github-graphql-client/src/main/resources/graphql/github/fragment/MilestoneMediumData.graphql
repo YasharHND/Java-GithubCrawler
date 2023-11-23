@@ -1,0 +1,24 @@
+fragment MilestoneMediumData on Milestone {
+    id
+    closed
+    creator {
+        login
+    }
+    description
+    dueOn
+    number
+    progressPercentage
+    pullRequests(first: 100) {
+        nodes {
+            ... PullRequestLightData
+        }
+    }
+    repository {
+        id
+    }
+    state
+    title
+    createdAt
+    updatedAt
+    closedAt
+}

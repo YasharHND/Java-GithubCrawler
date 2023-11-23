@@ -1,0 +1,17 @@
+fragment Milestone on Milestone {
+    id
+    closed
+    creator {
+        login
+    }
+    description
+    dueOn
+    number
+    progressPercentage
+    repository {
+        id
+    }
+    state
+    title
+    updatedAt
+}
