@@ -1,0 +1,7 @@
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/github-crawler
