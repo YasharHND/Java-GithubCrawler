@@ -1,4 +1,11 @@
 spring:
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 127.0.0.1:9092
+
+server:
+  port: 8080
+
+internal:
+  datastoreMs:
+    url: http://127.0.0.1:8081

@@ -1,6 +1,6 @@
 package com.yasharhnd.github_crawler.datastore.model.entity;
 
-import com.yasharhnd.github_crawler.datastore.model.enumeration.SearchType;
+import com.yasharhnd.github_crawler.commons.enumeration.SearchType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
