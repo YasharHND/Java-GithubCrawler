@@ -4,6 +4,11 @@ spring:
       bootstrap-servers: 127.0.0.1:9092
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/github-crawler
+      authenticationDatabase: admin
+      username: root
+      password: root
+      host: localhost
+      port: 27017
+      database: github-crawler
 server:
   port: 8081

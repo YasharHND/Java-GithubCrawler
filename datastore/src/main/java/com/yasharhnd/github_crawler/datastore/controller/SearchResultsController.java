@@ -27,7 +27,7 @@ public class SearchResultsController {
     @PostMapping
     public ResponseEntity<Page<Object>> searchResults(@Valid @RequestBody final ReqSearchResultsDto dto, @RequestParam final Integer page) {
         final var pageRequest = PageRequest.of(page, 5);
-        final var searchResults = searchResultRepository.findByTypeAndParameters(dto.getType(), dto.getCriteria(), pageRequest);
+        final var searchResults = searchResultRepository.findByLanguageAndNameStartsWith(dto.getLanguage(), "^%s".formatted(dto.getNameStartsWith()), pageRequest);
         return ResponseEntity.ok(new PageImpl<>(
             searchResults.stream().map(SearchResult::getFoundEntity).collect(Collectors.toList()),
             pageRequest,
