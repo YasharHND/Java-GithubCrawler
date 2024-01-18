@@ -19,7 +19,7 @@ import java.util.Map;
 public class Config {
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, CmdSearchReposDto> containerFactory(@Value("${spring.kafka.producer.bootstrap-servers}") final String bootstrapServers) {
+    public ConcurrentKafkaListenerContainerFactory<String, CmdSearchReposDto> containerFactory(@Value("${spring.kafka.bootstrap-servers}") final String bootstrapServers) {
         final var listenerContainerFactory = new ConcurrentKafkaListenerContainerFactory<String, CmdSearchReposDto>();
         listenerContainerFactory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(Map.of(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,

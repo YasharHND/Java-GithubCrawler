@@ -1,9 +1,11 @@
-version: "2.1"
+version: "3.8"
+
 services:
+
   mongo:
     image: mongodb/mongodb-community-server
-    hostname: mongo
     container_name: mongo
+    hostname: mongo
     ports:
       - "27017:27017"
     environment:
@@ -11,20 +13,24 @@ services:
       MONGODB_INITDB_ROOT_PASSWORD: root
     volumes:
       - mongo-data:/data/db
+
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.3.2
-    hostname: zookeeper
+    image: confluentinc/cp-zookeeper
     container_name: zookeeper
+    hostname: zookeeper
     ports:
       - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zookeeper:2888:3888
+
   kafka:
-    image: confluentinc/cp-kafka:7.3.2
-    hostname: kafka
+    image: confluentinc/cp-kafka
+    depends_on:
+      - zookeeper
     container_name: kafka
+    hostname: kafka
     ports:
       - "9092:9092"
       - "29092:29092"
@@ -33,20 +39,63 @@ services:
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_BROKER_ID: 1
-      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_LOG4J_LOGGERS: kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_JMX_PORT: 9999
       KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
       KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
-      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  api:
+    build: ./Api
+    platform: linux/amd64
     depends_on:
-      - zookeeper
+      - kafka
+      - datastore
+    container_name: api
+    hostname: api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:29092
+      INTERNAL_DATASTOREMS_URL: http://datastore:8080
+
+  datastore:
+    build: ./Datastore
+    platform: linux/amd64
+    depends_on:
+      - kafka
+      - mongo
+    container_name: datastore
+    hostname: datastore
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:29092
+      SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE: admin
+      SPRING_DATA_MONGODB_USERNAME: root
+      SPRING_DATA_MONGODB_PASSWORD: root
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: github-crawler
+
+  github-graphql-client:
+    build: ./GitHubGraphQlClient
+    platform: linux/amd64
+    depends_on:
+      - kafka
+    container_name: github-graphql-client
+    hostname: github-graphql-client
+    environment:
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:29092
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+
 volumes:
   mongo-data:
-    name: mongo-data
     external: true
-

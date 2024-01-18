@@ -24,7 +24,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class Config {
 
-    @Value("${spring.kafka.producer.bootstrap-servers}")
+    @Value("${spring.kafka.bootstrap-servers}")
     private final String bootstrapServers;
 
     @Bean

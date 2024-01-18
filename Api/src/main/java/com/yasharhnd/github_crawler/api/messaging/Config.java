@@ -18,7 +18,7 @@ import java.util.Map;
 public class Config {
 
     @Bean
-    public KafkaTemplate<String, CmdSearchReposDto> searchReposCmdTemplate(@Value("${spring.kafka.producer.bootstrap-servers}") final String bootstrapServers) {
+    public KafkaTemplate<String, CmdSearchReposDto> searchReposCmdTemplate(@Value("${spring.kafka.bootstrap-servers}") final String bootstrapServers) {
         return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(Map.of(
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
