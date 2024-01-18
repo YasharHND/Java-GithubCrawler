@@ -12,7 +12,7 @@ plugins {
     id "io.spring.dependency-management" version "1.1.4"
 }
 
-group = "com.yasharhnd.github_crawler.github_graphql_client"
+group = "com.yasharhnd.github_crawler.GitHubGraphQlClient"
 version = "0.0.1"
 
 java {
@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(":commons")
+    implementation project(":Commons")
     implementation "com.apollographql.apollo3:apollo-rx3-support:${apolloVersion}"
     implementation "org.springframework.boot:spring-boot-starter"
     implementation "org.springframework.kafka:spring-kafka"
