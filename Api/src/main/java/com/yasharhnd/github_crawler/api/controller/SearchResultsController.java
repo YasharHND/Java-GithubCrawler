@@ -1,6 +1,6 @@
 package com.yasharhnd.github_crawler.api.controller;
 
-import com.yasharhnd.github_crawler.api.client.DatastoreMsClient;
+import com.yasharhnd.github_crawler.api.client.DatastoreClient;
 import com.yasharhnd.github_crawler.commons.dto.ReqSearchResultsDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/search-results")
 public class SearchResultsController {
 
-    private final DatastoreMsClient datastoreMsClient;
+    private final DatastoreClient datastoreClient;
 
     @PostMapping
     public ResponseEntity<Page<Object>> searchResults(@Valid @RequestBody final ReqSearchResultsDto dto, @RequestParam final Integer page) {
-        return ResponseEntity.ok(datastoreMsClient.searchResults(dto, page));
+        return ResponseEntity.ok(datastoreClient.searchResults(dto, page));
     }
 
 }

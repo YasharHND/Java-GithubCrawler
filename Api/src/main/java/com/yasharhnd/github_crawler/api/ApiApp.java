@@ -8,10 +8,10 @@ import org.springframework.kafka.annotation.EnableKafka;
 @EnableKafka
 @EnableFeignClients
 @SpringBootApplication
-public class ApiMS {
+public class ApiApp {
 
     public static void main(final String... args) {
-        SpringApplication.run(ApiMS.class, args);
+        SpringApplication.run(ApiApp.class, args);
     }
 
 }

@@ -2,18 +2,6 @@ version: "3.8"
 
 services:
 
-  mongo:
-    image: mongodb/mongodb-community-server
-    container_name: mongo
-    hostname: mongo
-    ports:
-      - "27017:27017"
-    environment:
-      MONGODB_INITDB_ROOT_USERNAME: root
-      MONGODB_INITDB_ROOT_PASSWORD: root
-    volumes:
-      - mongo-data:/data/db
-
   zookeeper:
     image: confluentinc/cp-zookeeper
     container_name: zookeeper
@@ -52,6 +40,35 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+  mongo:
+    image: mongodb/mongodb-community-server
+    container_name: mongo
+    hostname: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: root
+      MONGODB_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - mongo-data:/data/db
+
+  datastore:
+    build: ./Datastore
+    platform: linux/amd64
+    depends_on:
+      - kafka
+      - mongo
+    container_name: datastore
+    hostname: datastore
+    environment:
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:29092
+      SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE: admin
+      SPRING_DATA_MONGODB_USERNAME: root
+      SPRING_DATA_MONGODB_PASSWORD: root
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: github-crawler
+
   api:
     build: ./Api
     platform: linux/amd64
@@ -64,26 +81,7 @@ services:
       - "8080:8080"
     environment:
       SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:29092
-      INTERNAL_DATASTOREMS_URL: http://datastore:8080
-
-  datastore:
-    build: ./Datastore
-    platform: linux/amd64
-    depends_on:
-      - kafka
-      - mongo
-    container_name: datastore
-    hostname: datastore
-    ports:
-      - "8081:8080"
-    environment:
-      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:29092
-      SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE: admin
-      SPRING_DATA_MONGODB_USERNAME: root
-      SPRING_DATA_MONGODB_PASSWORD: root
-      SPRING_DATA_MONGODB_HOST: mongo
-      SPRING_DATA_MONGODB_PORT: 27017
-      SPRING_DATA_MONGODB_DATABASE: github-crawler
+      SERVICE_DATASTORE_URL: datastore:8080
 
   github-graphql-client:
     build: ./GitHubGraphQlClient
